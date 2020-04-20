@@ -23,7 +23,8 @@ transactionsRouter.get('/', async (request, response) => {
   });
 
   const balance = await transactionsRepository.getBalance();
-  response.json({
+
+  return response.json({
     transactions,
     balance,
   });
@@ -38,6 +39,8 @@ transactionsRouter.post('/', async (request, response) => {
     value,
     category,
   });
+  delete transaction.created_at;
+  delete transaction.updated_at;
 
   return response.json(transaction);
 });
